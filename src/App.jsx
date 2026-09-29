@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PlantScene from './PlantScene'
 import { loadPlantData } from './plantData'
 import { detectLocale, LOCALES, t } from './i18n'
@@ -15,6 +15,8 @@ export default function App() {
   const [stage, setStage] = useState(1)
   const [open, setOpen] = useState(true)
   const [locale, setLocale] = useState(detectLocale)
+  // Marca una navegación explícita (rail/CTA) para que el snap de touch no la clampee
+  const navRef = useRef(null)
 
   useEffect(() => {
     loadPlantData().then(setData).catch(console.error)
@@ -48,8 +50,11 @@ export default function App() {
       const max = document.body.scrollHeight - window.innerHeight
       const p = max > 0 ? window.scrollY / max : 0
       let target = Math.min(6, Math.max(1, Math.round(p * 5) + 1))
-      if (startStage != null && Math.abs(target - startStage) > 1) {
-        target = startStage + Math.sign(target - startStage) // nunca salta dos fases
+      if (navRef.current != null) {
+        target = navRef.current // navegación explícita (rail/CTA): aterriza exacto, sin clamp
+        navRef.current = null
+      } else if (startStage != null && Math.abs(target - startStage) > 1) {
+        target = startStage + Math.sign(target - startStage) // swipe: nunca salta dos fases
       }
       setStage(target)
       window.scrollTo({ top: max * ((target - 1) / 5), behavior: 'smooth' })
@@ -75,6 +80,7 @@ export default function App() {
   }, [locale])
 
   const goStage = (n) => {
+    navRef.current = n // navegación explícita: el snap de touch la respeta sin clampear
     setStage(n)
     const max = document.body.scrollHeight - window.innerHeight
     window.scrollTo({ top: max * ((n - 1) / 5), behavior: 'smooth' })
