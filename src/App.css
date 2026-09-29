@@ -1,0 +1,54 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { background: #020617; color: #e2e8f0; font-family: system-ui, -apple-system, sans-serif; }
+
+.app { position: relative; }
+
+.hero { position: relative; height: 100vh; width: 100%; }
+.hero canvas { position: absolute; inset: 0; }
+
+.hero-title {
+  position: absolute; top: 8vh; left: 5vw; z-index: 5; max-width: 420px;
+  pointer-events: none;
+}
+.hero-title h1 { font-size: clamp(1.8rem, 4vw, 3rem); color: #fff; margin-bottom: 0.5rem; }
+.hero-title p { color: #94a3b8; font-size: 1.05rem; line-height: 1.5; }
+
+.spacer { height: 100vh; }
+
+.overlay {
+  position: fixed; right: 5vw; top: 50%; transform: translateY(-50%);
+  width: min(360px, 80vw); background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 16px;
+  padding: 1.5rem; backdrop-filter: blur(8px); z-index: 10;
+}
+.overlay-stage { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; margin-bottom: 0.5rem; }
+.overlay h2 { font-size: 1.4rem; color: #fff; margin-bottom: 0.6rem; }
+.chemistry { color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem; }
+
+.metric { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 1rem; }
+.metric-num { font-size: 2rem; font-weight: 700; color: #38bdf8; }
+.metric-unit { font-size: 0.9rem; color: #7dd3fc; }
+.metric-label { font-size: 0.85rem; color: #94a3b8; }
+.cap-chip {
+  align-self: flex-start; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.2rem 0.6rem; border-radius: 999px;
+}
+
+.cta {
+  display: inline-block; background: #2563eb; color: #fff; text-decoration: none;
+  padding: 0.7rem 1.2rem; border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.cta:hover { background: #1d4ed8; }
+
+.footer {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 10;
+  background: rgba(2, 6, 23, 0.9); border-top: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 1rem 5vw; backdrop-filter: blur(8px);
+}
+.footer-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #94a3b8; margin-bottom: 0.4rem; }
+.bar { height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden; margin-bottom: 0.4rem; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, #2563eb, #38bdf8); transition: width 0.4s ease; }
+.footer-total { font-size: 1.3rem; font-weight: 700; color: #38bdf8; }
