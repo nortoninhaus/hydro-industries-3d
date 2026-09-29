@@ -3,59 +3,59 @@
     {
       "id": "intake",
       "stage": 1,
-      "title": "Captación",
-      "chemistry": "Aguas crudas entran y se caracterizan in-situ por nuestros químicos antes de dimensionar una sola tubería.",
-      "metric": { "value": 0, "unit": "—", "label": "química del sitio mapeada antes del diseño" },
-      "cta": { "label": "Cómo dimensionamos un sitio", "url": "/contact/" }
+      "title": "Intake",
+      "chemistry": "Raw water enters and is characterised in-situ by our in-house chemists before a single pipe is sized.",
+      "metric": { "value": 0, "unit": "—", "label": "site chemistry mapped before design" },
+      "cta": { "label": "How we scope a site", "url": "/contact/" }
     },
     {
       "id": "coag",
       "stage": 2,
-      "title": "Coagulación + Floculación",
-      "chemistry": "El coagulante desestabiliza partículas suspendidas; el floculante las agrupa en flóculos sedimentables.",
-      "metric": { "value": 0, "unit": "—", "label": "dosis optimizada por sitio → menor gasto en reactivos" },
-      "cta": { "label": "Reduzca su gasto en reactivos", "url": "/contact/" }
+      "title": "Coagulation + Flocculation",
+      "chemistry": "The coagulant destabilises suspended particles; the flocculant binds them into settleable flocs.",
+      "metric": { "value": 0, "unit": "—", "label": "dose optimised per site → lower reagent spend" },
+      "cta": { "label": "Cut your reagent cost", "url": "/contact/" }
     },
     {
       "id": "sedim",
       "stage": 3,
-      "title": "Sedimentación",
-      "chemistry": "Los flóculos se asientan como lodo en los clarificadores; el agua clarificada sigue su curso.",
-      "metric": { "value": 0, "unit": "—", "label": "separación sin energía — sin bombas, sin consumo" },
-      "cta": { "label": "Reduzca su consumo energético", "url": "/contact/" }
+      "title": "Sedimentation",
+      "chemistry": "Flocs settle out as sludge in the clarifiers; clarified water moves on.",
+      "metric": { "value": 0, "unit": "—", "label": "energy-free separation — no pumps, no power draw" },
+      "cta": { "label": "Reduce your energy overhead", "url": "/contact/" }
     },
     {
       "id": "filtr",
       "stage": 4,
-      "title": "Filtración",
-      "chemistry": "Filtros multimedia + carbón activado retiran sólidos y orgánicos residuales hasta el estándar de descarga o reúso.",
-      "metric": { "value": 0, "unit": "—", "label": "filtración a especificación de cumplimiento" },
-      "cta": { "label": "Cumpla su límite de descarga", "url": "/contact/" }
+      "title": "Filtration",
+      "chemistry": "Multimedia + activated carbon filters strip residual solids and organics to discharge or reuse standard.",
+      "metric": { "value": 0, "unit": "—", "label": "filtration to compliance spec" },
+      "cta": { "label": "Hit your discharge limit", "url": "/contact/" }
     },
     {
       "id": "disinf",
       "stage": 5,
-      "title": "Desinfección",
-      "chemistry": "UV, cloro u ozono neutralizan patógenos — elegidos para el sitio, no por defecto.",
-      "metric": { "value": 454339000, "unit": "litros", "label": "agua potable entregada" },
-      "cta": { "label": "Entregue agua limpia", "url": "/contact/" }
+      "title": "Disinfection",
+      "chemistry": "UV, chlorine or ozone neutralise pathogens — chosen for the site, not by default.",
+      "metric": { "value": 454339000, "unit": "litres", "label": "drinking water delivered" },
+      "cta": { "label": "Deliver clean water", "url": "/contact/" }
     },
     {
       "id": "sludge",
       "stage": 6,
-      "title": "Lodos + Recuperación",
-      "chemistry": "El lodo se deshidrata y procesa; materiales valiosos se recuperan del flujo.",
-      "metric": { "value": 132440000, "unit": "kg", "label": "bio-sólidos recuperados" },
-      "cta": { "label": "Recupere lo que hoy descarta", "url": "/contact/" }
+      "title": "Sludge + Recovery",
+      "chemistry": "Sludge is dewatered and processed; valuable materials are salvaged from the stream.",
+      "metric": { "value": 132440000, "unit": "kg", "label": "bio-solids recovered" },
+      "cta": { "label": "Recover what you're discarding", "url": "/contact/" }
     }
   ],
   "footerMode": "headline",
   "totals": {
-    "headline": { "value": 24819282000, "unit": "litros", "label": "aguas industriales tratadas" },
+    "headline": { "value": 24819282000, "unit": "litres", "label": "industrial wastewater treated" },
     "rotate": [
-      { "unit": "litros", "value": 24819282000, "label": "aguas industriales tratadas" },
-      { "unit": "kg",     "value": 132440000,   "label": "bio-sólidos recuperados" },
-      { "unit": "litros", "value": 454339000,   "label": "agua potable entregada" }
+      { "unit": "litres", "value": 24819282000, "label": "industrial wastewater treated" },
+      { "unit": "kg",     "value": 132440000,   "label": "bio-solids recovered" },
+      { "unit": "litres", "value": 454339000,   "label": "drinking water delivered" }
     ]
   }
 }
