@@ -31,10 +31,25 @@ const chrome = {
 }
 
 // Overrides por fase por locale. Clave = phase id (intake, coag, sedim, filtr, disinf, sludge).
-// El campo ausente cae al canónico del JSON. Estructura lista, copy pendiente de web-copy.
+// Campos soportados: title, chemistry, metricLabel (→ metric.label), cta (→ cta.label).
+// El campo ausente o `undefined` cae al canónico del JSON. Números/units se heredan (invariantes).
 const phaseOverrides = {
-  fr: {},
-  es: {},
+  fr: {
+    intake: { title: 'Captage', chemistry: "L'eau brute entre et est caractérisée in-situ par nos chimistes avant qu'un seul tuyau soit dimensionné.", metricLabel: 'chimie du site cartographiée avant conception', cta: 'Comment nous dimensionnons un site' },
+    coag: { title: 'Coagulation + Floculation', chemistry: 'Le coagulant déstabilise les particules en suspension ; le floculant les agrège en flocs décantables.', metricLabel: 'dose optimisée par site → moindre dépense en réactifs', cta: 'Réduisez vos coûts de réactifs' },
+    sedim: { title: 'Sédimentation', chemistry: "Les flocs se déposent en boue dans les clarificateurs ; l'eau clarifiée poursuit son cours.", metricLabel: 'séparation sans énergie — sans pompes, sans consommation', cta: "Réduisez votre consommation d'énergie" },
+    filtr: { title: 'Filtration', chemistry: 'Filtres multimédia + charbon actif retirent les solides et organiques résiduels jusqu\'au standard de rejet ou réemploi.', metricLabel: 'filtration à la spécification de conformité', cta: 'Respectez votre limite de rejet' },
+    disinf: { title: 'Désinfection', chemistry: 'UV, chlore ou ozone neutralisent les pathogènes — choisis pour le site, pas par défaut.', cta: 'Livrez une eau propre' },
+    sludge: { title: 'Boues + Récupération', chemistry: 'Les boues sont déshydratées et traitées ; les matériaux valorisables sont récupérés du flux.', cta: 'Récupérez ce que vous rejetez' },
+  },
+  es: {
+    intake: { title: 'Captación', chemistry: 'Aguas crudas entran y se caracterizan in-situ por nuestros químicos antes de dimensionar una sola tubería.', metricLabel: 'química del sitio mapeada antes del diseño', cta: 'Cómo dimensionamos un sitio' },
+    coag: { title: 'Coagulación + Floculación', chemistry: 'El coagulante desestabiliza partículas suspendidas; el floculante las agrupa en flóculos sedimentables.', metricLabel: 'dosis optimizada por sitio → menor gasto en reactivos', cta: 'Reduzca su gasto en reactivos' },
+    sedim: { title: 'Sedimentación', chemistry: 'Los flóculos se asientan como lodo en los clarificadores; el agua clarificada sigue su curso.', metricLabel: 'separación sin energía — sin bombas, sin consumo', cta: 'Reduzca su consumo energético' },
+    filtr: { title: 'Filtración', chemistry: 'Filtros multimedia + carbón activado retiran sólidos y orgánicos residuales hasta el estándar de descarga o reúso.', metricLabel: 'filtración a especificación de cumplimiento', cta: 'Cumpla su límite de descarga' },
+    disinf: { title: 'Desinfección', chemistry: 'UV, cloro u ozono neutralizan patógenos — elegidos para el sitio, no por defecto.', cta: 'Entregue agua limpia' },
+    sludge: { title: 'Lodos + Recuperación', chemistry: 'El lodo se deshidrata y procesa; materiales valiosos se recuperan del flujo.', cta: 'Recupere lo que hoy descarta' },
+  },
 }
 
 export function detectLocale() {
@@ -49,7 +64,12 @@ export function t(locale) {
     chrome: chrome[locale] || chrome.en,
     phase(phase) {
       const ov = (phaseOverrides[locale] || {})[phase.id] || {}
-      return { ...phase, ...ov }
+      const out = { ...phase }
+      if (ov.title != null) out.title = ov.title
+      if (ov.chemistry != null) out.chemistry = ov.chemistry
+      if (ov.metricLabel != null) out.metric = { ...phase.metric, label: ov.metricLabel }
+      if (ov.cta != null) out.cta = { ...phase.cta, label: ov.cta }
+      return out
     },
   }
 }
