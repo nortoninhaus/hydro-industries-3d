@@ -1,0 +1,43 @@
+{
+  "giro": {
+    "touch": "step-to-step",
+    "touchSwipeForStage": 1,
+    "desktop": "scroll-scrub",
+    "dragMode": "pointer",
+    "holdToConfirm": false
+  },
+  "stageRail": {
+    "enabled": true,
+    "showDots": true,
+    "showLabels": false,
+    "snapBackOnStageLeave": true
+  },
+  "hotspot": {
+    "minHitAreaPt": 44,
+    "minHitAreaPxDprAware": true,
+    "activeCursor": "pointer",
+    "focusByScroll": "stage",
+    "open": "tapOrClick"
+  },
+  "overlay": {
+    "bindings": {
+      "title": "phases[{id}].title",
+      "body": "phases[{id}].chemistry",
+      "metricValue": "phases[{id}].metric.value",
+      "metricUnit": "phases[{id}].metric.unit",
+      "metricLabel": "phases[{id}].metric.label",
+      "ctaLabel": "phases[{id}].cta.label",
+      "ctaUrl": "phases[{id}].cta.url"
+    },
+    "footerTotal": "totals.headline.value",
+    "footerUnit": "totals.headline.unit",
+    "footerLabel": "totals.headline.label",
+    "accumulateOnStageComplete": true,
+    "rotateOnStageChange": "footerMode === 'rotate'"
+  },
+  "perf": {
+    "maxPixelRatio": { "desktop": 2, "mobile": 1.5 },
+    "lowPowerLod": "silhouette",
+    "cullNonHeroStagesOnConstrained": true
+  }
+}
