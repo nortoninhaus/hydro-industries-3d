@@ -20,19 +20,54 @@ export default function App() {
     loadPlantData().then(setData).catch(console.error)
   }, [])
 
-  // Scroll-scrub → fase discreta 1..6. Listener passive en scroll (patrón canónico
-  // de scroll-scrub; el navegador emite eventos por wheel/touch en runtime real).
-  // Los eventos leen scrollY fresco en cada tick; como leen el mismo scrollY que la
-  // cámara (useFrame), overlay/footer quedan en sync con el track 3D. El floor() da
-  // snap-back: soltar a mitad de scroll regresa a la fase actual completa.
+  // Scroll-scrub → fase discreta 1..6. Dos ramas según el tipo de input:
+  //  - Desktop (pointer fino): scrubbing continuo canónico. Listener passive lee
+  //    scrollY fresco en cada tick (mismo scrollY que la cámara en useFrame → sync);
+  //    el floor() da snap-back: soltar a mitad regresa a la fase actual completa.
+  //  - Touch (pointer grueso): step-to-step (@mobile-dev contract). Durante el gesto
+  //    el stage acompaña el scroll (el track reacciona); al soltar (settle ~150ms de
+  //    inactividad), se hace snap a la fase discreta más cercana con LÍMITE ±1 respecto
+  //    a la fase de inicio del gesto → 1 swipe = 1 fase, nunca salta dos, y nunca queda
+  //    colgado entre etapas. Sin agarrar el gesto: scroll nativo, sin pelea de touch;
+  //    constraint de 44pt y rail ya contratado.
   useEffect(() => {
-    const onScroll = () => {
+    const coarse = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches
+    const current = () => {
       const max = document.body.scrollHeight - window.innerHeight
       const p = max > 0 ? window.scrollY / max : 0
-      setStage(Math.min(6, Math.max(1, Math.floor(p * 6) + 1)))
+      return Math.min(6, Math.max(1, Math.floor(p * 6) + 1))
     }
+    if (!coarse) {
+      const onScroll = () => setStage(current())
+      window.addEventListener('scroll', onScroll, { passive: true })
+      return () => window.removeEventListener('scroll', onScroll)
+    }
+    let startStage = null
+    let settle = null
+    const snap = () => {
+      const max = document.body.scrollHeight - window.innerHeight
+      const p = max > 0 ? window.scrollY / max : 0
+      let target = Math.min(6, Math.max(1, Math.round(p * 5) + 1))
+      if (startStage != null && Math.abs(target - startStage) > 1) {
+        target = startStage + Math.sign(target - startStage) // nunca salta dos fases
+      }
+      setStage(target)
+      window.scrollTo({ top: max * ((target - 1) / 5), behavior: 'smooth' })
+      startStage = null
+    }
+    const onScroll = () => {
+      setStage(current())
+      clearTimeout(settle)
+      settle = setTimeout(snap, 150)
+    }
+    const onTouchStart = () => { startStage = current() }
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('touchstart', onTouchStart)
+      clearTimeout(settle)
+    }
   }, [])
 
   useEffect(() => {
