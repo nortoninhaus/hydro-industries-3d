@@ -1,0 +1,61 @@
+{
+  "phases": [
+    {
+      "id": "intake",
+      "stage": 1,
+      "title": "Captación",
+      "chemistry": "Aguas crudas entran y se caracterizan in-situ por nuestros químicos antes de dimensionar una sola tubería.",
+      "metric": { "value": 0, "unit": "—", "label": "química del sitio mapeada antes del diseño" },
+      "cta": { "label": "Cómo dimensionamos un sitio", "url": "/contact/" }
+    },
+    {
+      "id": "coag",
+      "stage": 2,
+      "title": "Coagulación + Floculación",
+      "chemistry": "El coagulante desestabiliza partículas suspendidas; el floculante las agrupa en flóculos sedimentables.",
+      "metric": { "value": 0, "unit": "—", "label": "dosis optimizada por sitio → menor gasto en reactivos" },
+      "cta": { "label": "Reduzca su gasto en reactivos", "url": "/contact/" }
+    },
+    {
+      "id": "sedim",
+      "stage": 3,
+      "title": "Sedimentación",
+      "chemistry": "Los flóculos se asientan como lodo en los clarificadores; el agua clarificada sigue su curso.",
+      "metric": { "value": 0, "unit": "—", "label": "separación sin energía — sin bombas, sin consumo" },
+      "cta": { "label": "Reduzca su consumo energético", "url": "/contact/" }
+    },
+    {
+      "id": "filtr",
+      "stage": 4,
+      "title": "Filtración",
+      "chemistry": "Filtros multimedia + carbón activado retiran sólidos y orgánicos residuales hasta el estándar de descarga o reúso.",
+      "metric": { "value": 0, "unit": "—", "label": "filtración a especificación de cumplimiento" },
+      "cta": { "label": "Cumpla su límite de descarga", "url": "/contact/" }
+    },
+    {
+      "id": "disinf",
+      "stage": 5,
+      "title": "Desinfección",
+      "chemistry": "UV, cloro u ozono neutralizan patógenos — elegidos para el sitio, no por defecto.",
+      "metric": { "value": 454339000, "unit": "litros", "label": "agua potable entregada" },
+      "cta": { "label": "Entregue agua limpia", "url": "/contact/" }
+    },
+    {
+      "id": "sludge",
+      "stage": 6,
+      "title": "Lodos + Recuperación",
+      "chemistry": "El lodo se deshidrata y procesa; materiales valiosos se recuperan del flujo.",
+      "metric": { "value": 132440000, "unit": "kg", "label": "bio-sólidos recuperados" },
+      "cta": { "label": "Recupere lo que hoy descarta", "url": "/contact/" }
+    }
+  ],
+  "footerMode": "headline",
+  "totals": {
+    "headline": { "value": 24819282000, "unit": "litros", "label": "aguas industriales tratadas" },
+    "rotate": [
+      { "unit": "litros", "value": 24819282000, "label": "aguas industriales tratadas" },
+      { "unit": "kg",     "value": 132440000,   "label": "bio-sólidos recuperados" },
+      { "unit": "litros", "value": 454339000,   "label": "agua potable entregada" }
+    ]
+  }
+}
