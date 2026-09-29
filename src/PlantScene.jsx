@@ -1,6 +1,6 @@
 import { useRef, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, Environment, ContactShadows } from '@react-three/drei'
+import { OrbitControls, ContactShadows } from '@react-three/drei'
 import * as THREE from 'three'
 
 // 6 fases de la planta, espaciadas a lo largo del eje X (track físico continuo)
@@ -51,17 +51,17 @@ function Silhouette({ position, kind }) {
   // Blocking/silueta para fases no-hero: geometría simple, color oscuro, sin detalle
   const geo = useMemo(() => {
     switch (kind) {
-      case 'intake': return <boxGeometry args={[2.4, 1.6, 1.6]} />
-      case 'coag': return <cylinderGeometry args={[1.1, 1.1, 2.2, 24]} />
-      case 'filtr': return <boxGeometry args={[2.6, 2.0, 1.4]} />
-      case 'disinf': return <cylinderGeometry args={[0.9, 0.9, 2.6, 24]} />
-      case 'sludge': return <coneGeometry args={[1.4, 2.2, 24]} />
-      default: return <boxGeometry args={[1.5, 1.5, 1.5]} />
+      case 'intake': return <boxGeometry args={[3.2, 2.2, 2.2]} />
+      case 'coag': return <cylinderGeometry args={[1.6, 1.6, 3.0, 24]} />
+      case 'filtr': return <boxGeometry args={[3.4, 2.6, 2.0]} />
+      case 'disinf': return <cylinderGeometry args={[1.3, 1.3, 3.4, 24]} />
+      case 'sludge': return <coneGeometry args={[2.0, 3.0, 24]} />
+      default: return <boxGeometry args={[2.0, 2.0, 2.0]} />
     }
   }, [kind])
   return (
     <group position={position}>
-      <mesh castShadow>{geo}<meshStandardMaterial color="#334155" metalness={0.3} roughness={0.7} /></mesh>
+      <mesh castShadow>{geo}<meshStandardMaterial color="#475569" metalness={0.3} roughness={0.6} /></mesh>
     </group>
   )
 }
@@ -95,7 +95,7 @@ function PlantTrack() {
       {/* suelo continuo */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[35, -1.4, 0]}>
         <planeGeometry args={[90, 20]} />
-        <meshStandardMaterial color="#0f172a" roughness={0.9} />
+        <meshStandardMaterial color="#1e293b" roughness={0.9} />
       </mesh>
     </group>
   )
@@ -108,25 +108,28 @@ function ScrollCamera() {
   useFrame(() => {
     // progreso 0..1 según scroll de la página
     const progress = Math.min(1, Math.max(0, window.scrollY / (document.body.scrollHeight - window.innerHeight)))
-    const x = progress * 70
+    // fase activa (1..6) → posición X de esa fase
+    const stage = Math.min(6, Math.max(1, Math.floor(progress * 6) + 1))
+    const x = PHASES[stage - 1].x
     target.current += (x - target.current) * 0.08
-    camera.position.set(target.current, 3.2, 9)
-    camera.lookAt(target.current, 0.6, 0)
+    camera.position.set(target.current, 2.6, 6)
+    camera.lookAt(target.current, 0.8, 0)
   })
   return null
 }
 
 export default function PlantScene() {
   return (
-    <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 3.2, 9], fov: 50 }}>
+    <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 2.6, 6], fov: 45 }}>
       <color attach="background" args={['#020617']} />
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[20, 20, 10]} intensity={1.2} castShadow />
-      <pointLight position={[28, 6, 4]} intensity={0.8} color="#38bdf8" />
-      <PlantTrack />
-      <ScrollCamera />
-      <ContactShadows position={[35, -1.3, 0]} opacity={0.5} scale={90} blur={2.4} far={4} />
-      <Environment preset="city" />
+      <ambientLight intensity={0.7} />
+                  <directionalLight position={[20, 20, 10]} intensity={1.8} castShadow />
+                  <pointLight position={[28, 6, 4]} intensity={1.2} color="#38bdf8" />
+                  <pointLight position={[0, 6, 4]} intensity={0.8} color="#60a5fa" />
+                  <pointLight position={[35, 8, -6]} intensity={0.6} color="#7dd3fc" />
+            <PlantTrack />
+            <ScrollCamera />
+            <ContactShadows position={[35, -1.3, 0]} opacity={0.5} scale={90} blur={2.4} far={4} />
     </Canvas>
   )
 }
